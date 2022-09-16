@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 public class DefaultPushServerResolver implements PushServerResolver {
     private final ExecutorService threadPool = Executors.newCachedThreadPool();
 
-    public CompletableFuture<String> postAsync(URL url, String json) throws CompletionException {
+    public CompletableFuture<String> postAsync(URL url, String json, Map<String, String> headers) throws CompletionException {
         String finalJson = json;
 
         CompletableFuture<String> retCompletableFuture
@@ -24,8 +24,15 @@ public class DefaultPushServerResolver implements PushServerResolver {
             try {
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type", "application/json");
-                urlConnection.setRequestProperty("Accept", "application/json");
+                urlConnection.setRequestProperty("Accept", "application/json");             
                 urlConnection.setDoOutput(true);
+                
+                if (headers != null) {
+	                for (Map.Entry<String, String> entry : headers.entrySet()) 
+	                {
+	                	urlConnection.setRequestProperty(entry.getKey(), entry.getValue());
+	                }
+	            }
 
                 try (OutputStream os = urlConnection.getOutputStream()) {
                     byte[] input = finalJson.getBytes("utf-8");

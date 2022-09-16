@@ -265,7 +265,7 @@ class PushClientTest {
         CompletableFuture<String> mockResponseFuture = new CompletableFuture<>().completedFuture(SOURCE_JSON);
 
         PushServerResolver pushServerResolverMock = mock(PushServerResolver.class);
-        when(pushServerResolverMock.postAsync(any(), any())).thenReturn(mockResponseFuture);
+        when(pushServerResolverMock.postAsync(any(), any(), any())).thenReturn(mockResponseFuture);
 
         PushClient client = new PushClient();
         client.pushServerResolver = pushServerResolverMock;
@@ -287,7 +287,7 @@ class PushClientTest {
     @Test
     public void sendPushNotificationsAsyncThrowsExceptionWithAllFailedMessages() throws PushClientException {
         PushServerResolver pushServerResolverMock = mock(PushServerResolver.class);
-        when(pushServerResolverMock.postAsync(any(), any())).thenThrow(new CompletionException(new Exception("Exception!")));
+        when(pushServerResolverMock.postAsync(any(), any(), any())).thenThrow(new CompletionException(new Exception("Exception!")));
 
         PushClient client = new PushClient();
         client.pushServerResolver = pushServerResolverMock;
@@ -313,7 +313,7 @@ class PushClientTest {
     @Test
     public void sendPushNotificationsReceiptAsyncThrowsExceptionWithAllFailedMessages() throws PushClientException {
         PushServerResolver pushServerResolverMock = mock(PushServerResolver.class);
-        when(pushServerResolverMock.postAsync(any(), any())).thenThrow(new CompletionException(new Exception("Exception!")));
+        when(pushServerResolverMock.postAsync(any(), any(), any())).thenThrow(new CompletionException(new Exception("Exception!")));
 
         PushClient client = new PushClient();
         client.pushServerResolver = pushServerResolverMock;
@@ -356,7 +356,7 @@ class PushClientTest {
         CompletableFuture<String> mockResponseFuture = CompletableFuture.completedFuture(RESPONSE_JSON);
 
         PushServerResolver pushServerResolverMock = mock(PushServerResolver.class);
-        when(pushServerResolverMock.postAsync(any(), any())).thenReturn(mockResponseFuture);
+        when(pushServerResolverMock.postAsync(any(), any(), any())).thenReturn(mockResponseFuture);
 
         PushClient client = new PushClient();
         client.pushServerResolver = pushServerResolverMock;
@@ -417,7 +417,7 @@ class PushClientTest {
         CompletableFuture<String> mockResponseFuture = CompletableFuture.completedFuture(RESPONSE_JSON);
 
         PushServerResolver pushServerResolverMock = mock(PushServerResolver.class);
-        when(pushServerResolverMock.postAsync(any(), any())).thenReturn(mockResponseFuture);
+        when(pushServerResolverMock.postAsync(any(), any(), any())).thenReturn(mockResponseFuture);
 
         PushClient client = new PushClient();
         client.pushServerResolver = pushServerResolverMock;
@@ -464,7 +464,7 @@ class PushClientTest {
         CompletableFuture<String> mockResponseFuture = CompletableFuture.completedFuture(RESPONSE_JSON);
 
         PushServerResolver pushServerResolverMock = mock(PushServerResolver.class);
-        when(pushServerResolverMock.postAsync(any(), any())).thenReturn(mockResponseFuture);
+        when(pushServerResolverMock.postAsync(any(), any(), any())).thenReturn(mockResponseFuture);
 
         PushClient client = new PushClient();
         client.pushServerResolver = pushServerResolverMock;

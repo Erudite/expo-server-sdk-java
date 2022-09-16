@@ -17,6 +17,7 @@ import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class PushClientTestCustomData {
@@ -262,7 +263,7 @@ class PushClientTestCustomData {
         CompletableFuture<String> mockResponseFuture = new CompletableFuture<>().completedFuture(SOURCE_JSON);
 
         PushServerResolver pushServerResolverMock = mock(PushServerResolver.class);
-        when(pushServerResolverMock.postAsync(any(), any())).thenReturn(mockResponseFuture);
+        when(pushServerResolverMock.postAsync(any(), any(), any())).thenReturn(mockResponseFuture);
 
         PushClient client = new PushClient();
         client.pushServerResolver = pushServerResolverMock;
@@ -285,7 +286,7 @@ class PushClientTestCustomData {
     @Test
     public void sendOnePushNotificationsAsyncThrowsExceptionWithTheFailedMessage() throws PushClientException {
         PushServerResolver pushServerResolverMock = mock(PushServerResolver.class);
-        when(pushServerResolverMock.postAsync(any(), any())).thenThrow(new CompletionException(new Exception("Exception!")));
+        when(pushServerResolverMock.postAsync(any(), any(), any())).thenThrow(new CompletionException(new Exception("Exception!")));
 
         PushClientCustomData<ExpoPushMessageCustomData<Integer>> client = new PushClientCustomData<>();
         client.pushServerResolver = pushServerResolverMock;
@@ -331,7 +332,7 @@ class PushClientTestCustomData {
 
         PushServerResolver pushServerResolverMock = mock(PushServerResolver.class);
 
-        when(pushServerResolverMock.postAsync(any(), any())).thenAnswer(new Answer() {
+        when(pushServerResolverMock.postAsync(any(), any(), any())).thenAnswer(new Answer() {
             private int count = 0;
 
             public Object answer(InvocationOnMock invocation) {
@@ -399,7 +400,7 @@ class PushClientTestCustomData {
     @Test
     public void sendPushNotificationsReceiptAsyncThrowsExceptionWithAllFailedMessages() throws PushClientException {
         PushServerResolver pushServerResolverMock = mock(PushServerResolver.class);
-        when(pushServerResolverMock.postAsync(any(), any())).thenThrow(new CompletionException(new Exception("Exception!")));
+        when(pushServerResolverMock.postAsync(any(), any(), any())).thenThrow(new CompletionException(new Exception("Exception!")));
 
         PushClientCustomData<ExpoPushMessageCustomData<Integer>> client = new PushClientCustomData<>();
         client.pushServerResolver = pushServerResolverMock;
